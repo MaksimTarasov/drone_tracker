@@ -20,9 +20,9 @@ def move_drone(cords: List):
     if i < l:
       message = 'stop'
       x1 = i_cr[0]
-      x2 = cr[i+1][0]
+      x2 = cords[i+1][0]
       y1 = i_cr[1]
-      y2 = cr[i+1][1]
+      y2 = cords[i+1][1]
 
       dx = x2 - x1
       dy = y2 - y1
