@@ -1,42 +1,36 @@
 import math
-import turtle
+from get_coords import getcords
 
-t = turtle.Turtle()
-cr = ((0, 0), (100, 0), (100, 100), (0, 100), (0, 0))
 
+cr = getcords('2.jpg', cont=False)
+#cr = ((0, 0), (100, 0), (100, 100), (0, 100), (0, 0))
 l = len(cr) - 1
+#Проход по контуру
+#TODO подключить библиотеку управления дроном,
+# и вместо сообщения передовать велечину смещения и направление смещения
 for i, i_cr in enumerate(cr):
   if i < l:
-    dx = cr[i+1][0] - i_cr[0]
-    dy = cr[i+1][1] - i_cr[1]
+    message = 'stop'
+    x1 = i_cr[0]
+    x2 = cr[i+1][0]
+    y1 = i_cr[1]
+    y2 = cr[i+1][1]
+
+    dx = x2 - x1
+    dy = y2 - y1
+
     dxy = math.sqrt(dx * dx + dy * dy)
-    """
-    # определение угла поворота
-    a = math.atan2(cr[i+1][1], cr[i+1][0]) * 180 / math.pi
-    #dxy = math.sqrt(dx*dx+dy*dy)
-    
-    print(f'угол: {a}')
-   
-    t.left(a)
-    """
     print('-'*10)
-    print(dx)
-    print(dy)
-    if dx == 0 and dy > 0:
-      t.left(90)
-      print('move up')
-    if dx == 0 and dy < 0:
-      t.right(90)
-      print('move down')
-    if dy == 0 and dx > 0:
-      t.right(0)
-      print('move right')
-    if dy == 0 and dx < 0:
-      t.left(0)
-      print('move left')
+    print(f'dx: {dx}')
+    print(f'dy: {dy}')
+    if x2 > x1:
+      message = 'move left'
+    if x2 < x1:
+      message = 'move right'
+    if y2 > y1:
+      message = 'move up'
+    if y2 < y1:
+      message = 'move down'
 
-    print(f'длина: {dxy}')
-    t.forward(dxy)
-
-turtle.mainloop()
-turtle.done()
+    print(message)
+    print(f'длина: {abs(dxy)}')
